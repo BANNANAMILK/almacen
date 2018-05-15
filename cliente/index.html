@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+        <style>
+            .icon {
+                cursor: pointer;
+                line-height: 20px;
+                margin-left: 5px;
+                user-select: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            
+            .oculto {
+                opacity: 0;
+            }
+            
+            td:hover > .oculto {
+                opacity: 1;
+            }
+        </style>
+</head>
+
+<body class="container" style="margin-top: 40px;">
+    <div id="agregar">
+        <button @click="showModal = true" class="btn btn-primary">Agregar Producto</button>
+        <!-- use the modal component, pass in the prop -->
+        <modal ref="modal1" v-show="showModal" @close="showModal = false">
+            <!--
+      you can use custom content here to overwrite
+      default content
+    -->
+            <h3 slot="header">custom header</h3>
+        </modal>
+    </div>
+    <div id="lista">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Categoria</th>
+                    <th>Cantidad</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in items">
+                    <td>{{capitalize(item.nombre)}}</td>
+                    <td>{{capitalize(item.categoria)}}</td>
+                    <td>{{item.cantidad}}<span class="fa fa-plus fa-2x icon oculto" @click="sumar(index)" style="margin-left: 10px"></span>
+                        <span @click="restar(index)" class="fa fa-minus fa-2x icon oculto" v-show="item.cantidad > 0"></span></td>
+                    <td><i class="fa fa-pencil fa-2x icon" @click="editar(index)"></i><i class="fa fa-trash fa-2x icon" @click="borrar(index)"></i></td>
+
+                </tr>
+            </tbody>
+        </table>
+        <pre>{{items}}</pre>
+    </div>
+    <script type="text/x-template" id="modal-template">
+        <div>
+            <div id="myModal" class="modal fade in" role="dialog" style="display:block; margin-top: 200px">
+                <div class="modal-dialog modal-sm">
+
+                    <!-- Modal content-->
+                    <div class="modal-content" style="padding: 20px">
+                        <div class="modal-header">
+                            <button @click="$emit('close')" type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{ editar ? "Editar" : "Añadir"}} Producto</h4>
+                        </div>
+                        <div class="modal-body form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="nombre">Nombre:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="nombre" v-model="nombre" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="categoria">Categoria:</label>
+                                <div class="col-sm-8">
+                                    <select v-model="categoria" id="categoria" class="form-control">
+                                        <option>Comida</option>
+                                        <option>Coches</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="cantidad">Cantidad:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" id="cantidad" v-model="cantidad" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" @click="add" :disabled="disabled">{{ editar ? "Editar" : "Añadir"}}</button>
+
+                            <button type="button" @click="$emit('close')" class="btn btn-default">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-on:click="$emit('close')" class="modal-backdrop fade in"></div>
+        </div>
+    </script>
+     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/vue.resource/1.2.1/vue-resource.min.js"></script>
+    
+    <script src="servicios.js"></script>
+    <script src="app.js"></script>
+   
+
+
+</body>
+
+</html>
