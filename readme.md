@@ -2,20 +2,18 @@
 
 # Usage
 
-1.  **cd /servidor** _(mini api)_
-
-    Install _node_modules_ with
+1.  The API -> **cd /servidor**
 
     ```
-    command: npm package.json
+    npm install package.json (install nodemodules)
     ```
 
-    Execute
-
     ```
-    command: node app.js
+    node app.js (Start Serve)
     ```
 
-2.  **cd /cliente** _(mini client)_
+2.  Client side **cd /cliente**
 
-    Open manually on your browser > index.html
+    ```
+    index.html (Open manually on your browser)
+    ```
