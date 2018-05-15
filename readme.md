@@ -1,4 +1,4 @@
-##Example of mini warehouse :P
+## Example of mini warehouse :P
 
 # Usage
 
@@ -18,4 +18,4 @@
 
 2.  **cd /cliente** _(mini client)_
 
-    OOpen manually on your browser > index.html
+    Open manually on your browser > index.html
